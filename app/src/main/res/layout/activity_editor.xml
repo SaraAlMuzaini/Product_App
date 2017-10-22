@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2016 The Android Open Source Project
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+--><!-- Layout for the editor -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="2"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".EditorActivity">
+
+    <!--Name of Product-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/label_name"
+            style="@style/CategoryStyle"
+            android:layout_gravity="center_vertical"
+            android:text="@string/category_name" />
+
+        <EditText
+            android:id="@+id/name_edit"
+            style="@style/EditorFieldStyle"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:hint="@string/hint_product_name"
+            android:inputType="textCapWords" />
+
+    </LinearLayout>
+
+    <!--Price of the product-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin">
+
+        <TextView
+            android:id="@+id/label_price"
+            style="@style/CategoryStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:text="@string/category_price" />
+
+        <EditText
+            android:id="@+id/price_edit"
+            style="@style/EditorFieldStyle"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:hint="@string/hint_price"
+            android:inputType="numberDecimal" />
+
+        <TextView
+            android:id="@+id/price_unite"
+            style="@style/EditorUnitsStyle"
+            android:text=" $"
+            android:textColor="@color/editorColorPrimary" />
+    </LinearLayout>
+
+    <!--quantity available of the product-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/label_quantity"
+            style="@style/CategoryStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="0"
+            android:text="@string/category_quantity" />
+
+        <EditText
+            android:id="@+id/quantity_edit"
+            style="@style/EditorFieldStyle"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:hint="@string/hint_quantity"
+            android:inputType="number" />
+
+    </LinearLayout>
+    <!--supplier of the product-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin">
+
+        <TextView
+            android:id="@+id/label_supplier"
+            style="@style/CategoryStyle"
+            android:layout_width="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/category_supplier" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/supplier_name_edit"
+                style="@style/EditorFieldStyle"
+                android:layout_width="match_parent"
+                android:hint="@string/hint_supplier_name"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/supplier_email_edit"
+                style="@style/EditorFieldStyle"
+                android:layout_width="match_parent"
+                android:hint="@string/hint_supplier_email"
+                android:inputType="text" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <!--picture category -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/label_picture"
+            style="@style/CategoryStyle"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/activity_margin"
+            android:layout_weight="0"
+            android:text="@string/category_picture" />
+
+        <ImageButton
+            android:id="@+id/insert_picture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/activity_margin"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_insert_photo" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/image_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/activity_margin"
+        tools:src="@drawable/ic_empty_shelter" />
+</LinearLayout>
+
+
+
+
+
+
