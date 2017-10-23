@@ -19,6 +19,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,11 @@ public class ProductAdapter extends CursorAdapter {
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_NAME);
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_QUANTITY);
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRICE);
+        Log.v("ProductAdapter", "bindView before mCurrentProductUri called with id: "+id);
+        int id= cursor.getInt(cursor.getColumnIndex(ProductEntry._ID));
+        Log.v("ProductAdapter", "bindView before mCurrentProductUri called with id: "+id);
         final Uri mCurrentProductUri = Uri.parse(ProductEntry.CONTENT_URI + "/" + id);
+        Log.v("ProductAdapter", "bindView after mCurrentProductUri called with id: "+id);
 
         // Read the product attributes from the Cursor for the current product
         String productName = cursor.getString(nameColumnIndex);

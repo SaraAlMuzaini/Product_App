@@ -18,13 +18,19 @@ package com.example.android.products.data;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.android.products.R;
 import com.example.android.products.data.ProductContract.ProductEntry;
+
+import static android.R.attr.id;
+import static android.widget.Toast.LENGTH_LONG;
 
 /**
  * {@link ContentProvider} for Products app.
@@ -139,7 +145,8 @@ public class ProductProvider extends ContentProvider {
         byte[] picture = values.getAsByteArray(ProductEntry.COLUMN_PICTURE);
         if (picture == null) {
             throw new IllegalArgumentException("Product not have picture");
-        }}
+        }
+        }
         // Check that the supplier name is not null
         String supplierName = values.getAsString(ProductEntry.COLUMN_SUPPLIER_NAME);
         if (supplierName == null) {
@@ -237,6 +244,8 @@ public class ProductProvider extends ContentProvider {
         if (values.containsKey(ProductEntry.COLUMN_QUANTITY)) {
             // Check that the weight is greater than or equal to 0
             Integer quantity = values.getAsInteger(ProductEntry.COLUMN_QUANTITY);
+            Log.v("ProductProvider", "UpdateProduct called with id "+id+ " Quantity: "+quantity);
+
             if (quantity != null && quantity < 0) {
                 throw new IllegalArgumentException("Product requires valid quantity");
             }
@@ -252,12 +261,20 @@ public class ProductProvider extends ContentProvider {
             }
         }
 
+        if (values.containsKey(ProductEntry.COLUMN_PICTURE)){
+            byte[] picture = values.getAsByteArray(ProductEntry.COLUMN_PICTURE);
+            if (picture == null) {
+                throw new IllegalArgumentException("Product not have picture");
+            }
+        }
+
         // If there are no values to update, then don't try to update the database
         if (values.size() == 0) {
+            Toast.makeText(getContext(),R.string.error,Toast.LENGTH_LONG).show();
             return 0;
         }
 
-        // Otherwise, get writeable database to update the data
+        // Otherwise, get writable database to update the data
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         // Perform the update on the database and get the number of rows affected
@@ -319,4 +336,6 @@ public class ProductProvider extends ContentProvider {
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
     }
+
+
 }

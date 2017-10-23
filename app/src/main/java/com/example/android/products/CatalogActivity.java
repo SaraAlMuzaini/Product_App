@@ -38,6 +38,8 @@ import android.widget.ListView;
 import com.example.android.products.data.ProductContract;
 import com.example.android.products.data.ProductContract.ProductEntry;
 
+import static android.R.attr.id;
+
 
 public class CatalogActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
@@ -75,10 +77,6 @@ public class CatalogActivity extends AppCompatActivity implements
         View emptyView = findViewById(R.id.empty_view);
         productListView.setEmptyView(emptyView);
 
-        // Setup an Adapter to create a list item for each row of product data in the Cursor.
-        // There is no product data yet (until the loader finishes) so pass in null for the Cursor.
-        mCursorAdapter = new ProductAdapter(this, null);
-        productListView.setAdapter(mCursorAdapter);
 
         // Setup the item click listener
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -94,12 +92,19 @@ public class CatalogActivity extends AppCompatActivity implements
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentProductUri);
-
+                Log.v("CatalogActivity", "onItemClick called with id "+id);
                 // Launch the {@link DetailActivity} to display the data for the current product.
                 startActivity(intent);
             }
         });
-          // Kick off the loader
+
+        // Setup an Adapter to create a list item for each row of product data in the Cursor.
+        // There is no product data yet (until the loader finishes) so pass in null for the Cursor.
+        mCursorAdapter = new ProductAdapter(this, null);
+        productListView.setAdapter(mCursorAdapter);
+        Log.v("CatalogActivity", "onCreate called with id "+id);
+
+        // Kick off the loader
         getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
     }
 
@@ -162,7 +167,7 @@ public class CatalogActivity extends AppCompatActivity implements
                 ProductEntry._ID,
                 ProductEntry.COLUMN_NAME,
                 ProductEntry.COLUMN_QUANTITY,
-                ProductEntry.COLUMN_PRICE,};
+                ProductEntry.COLUMN_PRICE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context

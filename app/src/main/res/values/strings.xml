@@ -12,6 +12,7 @@
 <resources>
     <!-- Name for the application -->
     <string name="app_name">Inventory App</string>
+    <string name="error">No data to update</string>
 
     <!-- Label for overflow menu option that inserts fake product data into the app -->
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
@@ -20,7 +21,7 @@
     <string name="action_delete_all_entries">Delete All Products</string>
 
     <!-- Title text for the empty view -->
-    <string name="empty_view_title_text">There is no Product...</string>
+    <string name="empty_view_title_text">There is no Product(...,&#8230;)</string>
 
     <!-- Subtitle text for the empty view that prompts the user to add a product -->
     <string name="empty_view_subtitle_text">Add Product by click on the \"+\"  button below</string>

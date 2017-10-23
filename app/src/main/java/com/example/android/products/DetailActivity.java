@@ -234,6 +234,7 @@ public class DetailActivity extends AppCompatActivity implements
         // (This should be the only row in the cursor)
         if (cursor.moveToFirst()) {
             // Find the columns of product attributes that we're interested in
+
             int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_NAME);
             int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_NAME);
             int supplierEmailColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_SUPPLIER_EMAIL);
