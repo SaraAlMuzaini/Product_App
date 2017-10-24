@@ -19,7 +19,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import android.widget.Toast;
 
 import com.example.android.products.data.ProductContract.ProductEntry;
 
-import static android.R.attr.id;
 
 /**
  * {@link ProductAdapter} is an adapter for a list or grid view
@@ -66,6 +64,7 @@ public class ProductAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
+
         // Find individual views that we want to modify in the list item layout
         TextView nameTextView = (TextView) view.findViewById(R.id.text_name_list);
         TextView mQuantityTextView = (TextView) view.findViewById(R.id.text_quantity_list);
@@ -75,7 +74,7 @@ public class ProductAdapter extends CursorAdapter {
         int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_NAME);
         int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_QUANTITY);
         int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRICE);
-        
+
         int id = cursor.getInt(cursor.getColumnIndex(ProductEntry._ID));
         final Uri mCurrentProductUri = Uri.parse(ProductEntry.CONTENT_URI + "/" + id);
 
@@ -113,5 +112,6 @@ public class ProductAdapter extends CursorAdapter {
         mPriceTextView.setText(Integer.toString(productPrice));
 
     }
+
 
 }

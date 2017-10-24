@@ -28,7 +28,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -39,18 +38,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.products.data.ProductContract;
 import com.example.android.products.data.ProductContract.ProductEntry;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-
-import static android.R.attr.name;
 
 /**
  * Allows user to create a new product or edit an existing one.
@@ -100,8 +96,13 @@ public class EditorActivity extends AppCompatActivity implements
      */
     private ImageButton mInsertPictureImageButton;
     public static final int IMAGE_PICKER_CODE = 3;
-    private ImageView mImageEdit;
+    private ImageView mImageEditShow;
     private byte[] imageArray;
+
+    /**
+     * If any field Empty this TextView show Error massage
+     */
+    private TextView mEmptyFieldError;
     /**
      * Boolean flag that keeps track of whether the product has been edited (true) or not (false)
      */
@@ -153,7 +154,8 @@ public class EditorActivity extends AppCompatActivity implements
         mSupplierNameEditText = (EditText) findViewById(R.id.supplier_name_edit);
         mSupplierEmailEditText = (EditText) findViewById(R.id.supplier_email_edit);
         mInsertPictureImageButton = (ImageButton) findViewById(R.id.insert_picture);
-        mImageEdit = (ImageView) findViewById(R.id.image_edit);
+        mImageEditShow = (ImageView) findViewById(R.id.image_edit);
+        mEmptyFieldError = (TextView) findViewById(R.id.empty_field_error);
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
         // or not, if the user tries to leave the editor without saving.
@@ -190,7 +192,7 @@ public class EditorActivity extends AppCompatActivity implements
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 // Temp code to store image
-                mImageEdit.setImageBitmap(selectedImage);
+                mImageEditShow.setImageBitmap(selectedImage);
                 imageArray = imageToArray(selectedImage);
 
             } catch (FileNotFoundException e) {
@@ -325,9 +327,16 @@ public class EditorActivity extends AppCompatActivity implements
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 // Save product to database
-                saveProduct();
-                // Exit activity
-                finish();
+                if (!isFieldNull()) {
+                    saveProduct();
+                    // Exit activity
+                    finish();
+                } else {
+                    /**
+                     * show Error and stay in the Editor don't exist activity
+                     */
+                    mEmptyFieldError.setVisibility(View.VISIBLE);
+                }
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -360,6 +369,26 @@ public class EditorActivity extends AppCompatActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isFieldNull() {
+        // Read from input fields
+        // Use trim to eliminate leading or trailing white space
+        String nameString = mNameEditText.getText().toString().trim();
+        String supplierNameString = mSupplierNameEditText.getText().toString().trim();
+        String supplierEmailString = mSupplierEmailEditText.getText().toString().trim();
+        String quantityString = mQuantityEditText.getText().toString().trim();
+        String priceString = mPriceEditText.getText().toString().trim();
+
+        // Check if this is supposed to be a new product
+        // and check if all the fields in the editor are blank
+        if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(supplierNameString) || TextUtils.isEmpty(supplierEmailString)
+                || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(priceString) || imageArray == null) {
+            // if any of this fields weren't modified return null
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -440,7 +469,7 @@ public class EditorActivity extends AppCompatActivity implements
             mSupplierEmailEditText.setText(supplierEmail);
             mQuantityEditText.setText(Integer.toString(quantity));
             mPriceEditText.setText(Integer.toString(price));
-            mImageEdit.setImageBitmap(byteToBitmap(picture));
+            mImageEditShow.setImageBitmap(byteToBitmap(picture));
         }
     }
 

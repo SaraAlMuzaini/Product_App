@@ -83,9 +83,10 @@ public class DetailActivity extends AppCompatActivity implements
 
         // If the intent DOES NOT contain a product content URI, then we know that we are
         // creating a new product.
-        if (mCurrentProductUri != null) {
+        if (mCurrentProductUri == null) {
             finish();
         }
+
         // Find all relevant views that we will need to print info on it
         mNameTextView = (TextView) findViewById(R.id.text_name);
         mQuantityTextView = (TextView) findViewById(R.id.text_quantity);
@@ -249,7 +250,6 @@ public class DetailActivity extends AppCompatActivity implements
             mCurrentQuantity = cursor.getInt(quantityColumnIndex);
             int price = cursor.getInt(priceColumnIndex);
             byte[] photo = cursor.getBlob(pictureColumnIndex);
-            Bitmap theImage = byteToBitmap(photo);
 
 
             // Update the views on the screen with the values from the database
@@ -257,18 +257,14 @@ public class DetailActivity extends AppCompatActivity implements
             mSupplierNameTextView.setText(supplierName);
             mQuantityTextView.setText(Integer.toString(mCurrentQuantity));
             mPriceTextView.setText(Integer.toString(price));
-            if (theImage == null) {
-                mPictureProduct.setImageResource(R.drawable.ic_empty_shelter);
+            if (photo == null) {
+                mPictureProduct.setImageResource(R.mipmap.ic_launcher);
             } else {
-                mPictureProduct.setImageBitmap(theImage);
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(photo);
+                Bitmap imageBitmap = BitmapFactory.decodeStream(inputStream);
+                mPictureProduct.setImageBitmap(imageBitmap);
             }
         }
-    }
-
-    public Bitmap byteToBitmap(byte[] imageByte) {
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(imageByte);
-        Bitmap imageBitmap = BitmapFactory.decodeStream(imageStream);
-        return imageBitmap;
     }
 
     @Override

@@ -21,7 +21,7 @@
     <string name="action_delete_all_entries">Delete All Products</string>
 
     <!-- Title text for the empty view -->
-    <string name="empty_view_title_text">There is no Product(...,&#8230;)</string>
+    <string name="empty_view_title_text">There is no Product &#8230;</string>
 
     <!-- Subtitle text for the empty view that prompts the user to add a product -->
     <string name="empty_view_subtitle_text">Add Product by click on the \"+\"  button below</string>
@@ -34,7 +34,7 @@
 
     <!-- Label for editor menu option to save product and leave editor -->
     <string name="action_save">Save</string>
-
+    <string name="error_empty_entry">Error:\nEvery Fields Is Mandatory.. Don\'t leave field without entry.</string>
     <!-- Label for editor overflow menu option that deletes the current product -->
     <string name="action_delete">Delete</string>
 

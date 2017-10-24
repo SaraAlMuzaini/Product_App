@@ -35,12 +35,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.products.CatalogActivity" />
         </activity>
-        <activity android:name="com.example.android.products.DetailActivity">
+        <activity
+            android:name="com.example.android.products.DetailActivity"
+            android:parentActivityName="com.example.android.products.CatalogActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
 
                 android:value="com.example.android.products.CatalogActivity" />
-
         </activity>
 
         <provider

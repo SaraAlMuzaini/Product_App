@@ -30,9 +30,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.android.products.data.ProductContract;
@@ -82,7 +80,7 @@ public class CatalogActivity extends AppCompatActivity implements
         productListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                 // Create new intent to go to {@link DetailActivity}
+                // Create new intent to go to {@link DetailActivity}
                 Intent intent = new Intent(CatalogActivity.this, DetailActivity.class);
 
                 // Form the content URI that represents the specific product that was clicked on,
@@ -92,7 +90,7 @@ public class CatalogActivity extends AppCompatActivity implements
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentProductUri);
-                Log.v("CatalogActivity", "onItemClick called with id "+id);
+                Log.v("CatalogActivity", "onItemClick called with id " + id);
                 // Launch the {@link DetailActivity} to display the data for the current product.
                 startActivity(intent);
             }
@@ -102,7 +100,7 @@ public class CatalogActivity extends AppCompatActivity implements
         // There is no product data yet (until the loader finishes) so pass in null for the Cursor.
         mCursorAdapter = new ProductAdapter(this, null);
         productListView.setAdapter(mCursorAdapter);
-        Log.v("CatalogActivity", "onCreate called with id "+id);
+        Log.v("CatalogActivity", "onCreate called with id " + id);
 
         // Kick off the loader
         getLoaderManager().initLoader(PRODUCT_LOADER, null, this);

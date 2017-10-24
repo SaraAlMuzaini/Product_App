@@ -19,6 +19,13 @@
     android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
+    <TextView
+        android:id="@+id/empty_field_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_empty_entry"
+        android:textColor="@color/colorAccent"
+        android:visibility="gone" />
     <!--Name of Product-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -160,7 +167,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/activity_margin"
-        tools:src="@drawable/ic_empty_shelter" />
+        tools:src="@mipmap/ic_launcher" />
 </LinearLayout>
 
 
